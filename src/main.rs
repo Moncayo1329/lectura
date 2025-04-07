@@ -8,6 +8,7 @@ enum Categoria{
     Economia,
     Filosofia,
     CienciaFiccion,
+    Articulos,
     Otros,
 
 }
@@ -18,6 +19,7 @@ struct Lectura {
     descripcion: String,
     numero_libro: u32,
     categoria:Categoria,
+   
 
 }
 
@@ -34,6 +36,7 @@ loop {
     let mut descripcion = String::new();
     let mut numero_libro = String::new();
     let mut categoria_input = String::new();
+    let mut articulos = String::new();
 
 
 
@@ -58,6 +61,12 @@ io::stdin()
 .read_line(&mut numero_libro)
 .expect("error en el numero del libro");
 
+
+println!("Esto es un articulo?");
+io::stdin()
+.read_line(&mut articulos)
+.expect("error al leer este articulo");
+
 // Convertir numero libro de string a u32
 
 let numero_libro: u32 = match numero_libro.trim().parse() {
@@ -70,6 +79,8 @@ let numero_libro: u32 = match numero_libro.trim().parse() {
 
 println!("¿Cuál es la categoría del libro? (finanzas, economia, filosofia, cienciaficcion, otros)");
 io::stdin().read_line(&mut categoria_input).expect("Error al leer la categoría");
+
+
 
 
 
@@ -92,6 +103,7 @@ nombre:nombre.trim().to_string(),
 descripcion:descripcion.trim().to_string(),
 numero_libro,
 categoria: categoria_enum,
+articulos:articulos.trim().to_string(),
 
 };
 
@@ -104,13 +116,22 @@ if continuar.trim().to_lowercase() != "s"{
 
     break;
 }
-}
 
+
+
+println!("¿Deseas ingresar un articulo? (s/n)");
+let mut articulo = String::new();
+io::stdin().read_line(&mut articulo).expect("Error al leer");
+if articulo.trim().to_lowercase() != "s"{
+
+    break;
+}
+}
 println!("\nLista de libros ingresados:");
 for (i,libro) in libros.iter().enumerate(){
 println!("
 
-{}.Libro: {}\nDescripción: {}\nNúmero: {}\nCategoria: {:?}",
+{}.Libro: {}\nDescripción: {}\nNúmero: {}\nCategoria: {:?} \nArticulo: {:?}",
 i + 1,
     libro.nombre,
      libro.descripcion, 
