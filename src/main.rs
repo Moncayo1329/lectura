@@ -1,10 +1,23 @@
 use std::io;
 
+
+
+#[derive(Debug)]
+enum Categoria{ 
+    Finanzas,
+    Economia,
+    Filosofia,
+    CienciaFiccion,
+    Otros,
+
+}
+
 struct Lectura { 
 
     nombre: String,
     descripcion: String,
     numero_libro: u32,
+    categoria:Categoria,
 
 }
 
@@ -20,6 +33,7 @@ loop {
     let mut nombre = String::new();
     let mut descripcion = String::new();
     let mut numero_libro = String::new();
+    let mut categoria_input = String::new();
 
 
 
@@ -54,12 +68,30 @@ let numero_libro: u32 = match numero_libro.trim().parse() {
     }
 };
 
+println!("¿Cuál es la categoría del libro? (finanzas, economia, filosofia, cienciaficcion, otros)");
+io::stdin().read_line(&mut categoria_input).expect("Error al leer la categoría");
+
+
+
+let categoria_enum: Categoria = match categoria_input.trim().to_lowercase().as_str(){
+    "finanzas" => Categoria::Finanzas,
+    "economia" => Categoria::Economia,
+    "filosofia" => Categoria::Filosofia,
+    "CienciaFiccion" => Categoria::CienciaFiccion,
+    "otros" => Categoria::Otros,
+    _ => {
+        println!("Categoria Invalida. Intente Nuevamente");
+        continue;
+    }
+};
+
 
 let libro = Lectura {
 
 nombre:nombre.trim().to_string(),
 descripcion:descripcion.trim().to_string(),
 numero_libro,
+categoria: categoria_enum,
 
 };
 
@@ -78,11 +110,12 @@ println!("\nLista de libros ingresados:");
 for (i,libro) in libros.iter().enumerate(){
 println!("
 
-{}.Libro: {}\nDescripción: {}\nNúmero: {}",
+{}.Libro: {}\nDescripción: {}\nNúmero: {}\nCategoria: {:?}",
 i + 1,
     libro.nombre,
      libro.descripcion, 
-     libro.numero_libro
+     libro.numero_libro,
+     libro.categoria,
 
 
     );
