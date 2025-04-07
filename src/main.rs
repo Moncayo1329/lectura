@@ -12,9 +12,16 @@ struct Lectura {
 fn main(){
 // Crear variables para almacenar libros ingresados por el usuario.
 
-let mut nombre = String::new();
-let mut descripcion = String::new();
-let mut numero_libro = String::new();
+let mut libros: Vec<Lectura> = Vec::new(); // se puede guardar mas libros con vec 
+
+loop {
+
+
+    let mut nombre = String::new();
+    let mut descripcion = String::new();
+    let mut numero_libro = String::new();
+
+
 
 // Pedir al usuario que ingrese la descripcion del gasto. 
 
@@ -47,7 +54,6 @@ let numero_libro: u32 = match numero_libro.trim().parse() {
     }
 };
 
-println!("Libro: {}\nDescripción: {}\nNúmero: {}", nombre.trim(), descripcion.trim(), numero_libro);
 
 let libro = Lectura {
 
@@ -57,13 +63,28 @@ numero_libro,
 
 };
 
-println!(
-"Libro: {}\nDescripción: {}\nNúmero: {}",
-    libro.nombre, libro.descripcion, libro.numero_libro
+libros.push(libro);
 
-);
+println!("¿Deseas ingresar otro libro? (s/n)");
+let mut continuar = String::new();
+io::stdin().read_line(&mut continuar).expect("Error al leer");
+if continuar.trim().to_lowercase() != "s"{
+
+    break;
+}
+}
+
+println!("\nLista de libros ingresados:");
+for (i,libro) in libros.iter().enumerate(){
+println!("
+
+{}.Libro: {}\nDescripción: {}\nNúmero: {}",
+i + 1,
+    libro.nombre,
+     libro.descripcion, 
+     libro.numero_libro
 
 
-
-
+    );
+}
 }
