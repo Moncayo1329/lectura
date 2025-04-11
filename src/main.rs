@@ -19,6 +19,7 @@ struct Lectura {
     descripcion: String,
     numero_libro: u32,
     categoria:Categoria,
+
    
 
 }
@@ -36,7 +37,7 @@ loop {
     let mut descripcion = String::new();
     let mut numero_libro = String::new();
     let mut categoria_input = String::new();
-    let mut articulos = String::new();
+   
 
 
 
@@ -62,10 +63,6 @@ io::stdin()
 .expect("error en el numero del libro");
 
 
-println!("Esto es un articulo?");
-io::stdin()
-.read_line(&mut articulos)
-.expect("error al leer este articulo");
 
 // Convertir numero libro de string a u32
 
@@ -77,7 +74,7 @@ let numero_libro: u32 = match numero_libro.trim().parse() {
     }
 };
 
-println!("¿Cuál es la categoría del libro? (finanzas, economia, filosofia, cienciaficcion, otros)");
+println!("¿Cuál es la categoría del libro? (finanzas, economia, filosofia, cienciaficcion, articulos, otros)");
 io::stdin().read_line(&mut categoria_input).expect("Error al leer la categoría");
 
 
@@ -88,7 +85,8 @@ let categoria_enum: Categoria = match categoria_input.trim().to_lowercase().as_s
     "finanzas" => Categoria::Finanzas,
     "economia" => Categoria::Economia,
     "filosofia" => Categoria::Filosofia,
-    "CienciaFiccion" => Categoria::CienciaFiccion,
+    "cienciaficcion" => Categoria::CienciaFiccion,
+    "articulos" => Categoria::Articulos,
     "otros" => Categoria::Otros,
     _ => {
         println!("Categoria Invalida. Intente Nuevamente");
@@ -103,7 +101,6 @@ nombre:nombre.trim().to_string(),
 descripcion:descripcion.trim().to_string(),
 numero_libro,
 categoria: categoria_enum,
-articulos:articulos.trim().to_string(),
 
 };
 
@@ -129,16 +126,15 @@ if articulo.trim().to_lowercase() != "s"{
 }
 println!("\nLista de libros ingresados:");
 for (i,libro) in libros.iter().enumerate(){
-println!("
 
-{}.Libro: {}\nDescripción: {}\nNúmero: {}\nCategoria: {:?} \nArticulo: {:?}",
-i + 1,
+println!("{} - Libro: {}\nDescripción: {}\nNúmero: {}\nCategoria: {:?}",
+    i + 1,
     libro.nombre,
-     libro.descripcion, 
-     libro.numero_libro,
-     libro.categoria,
+    libro.descripcion,
+    libro.numero_libro,
+    libro.categoria,
+);
 
-
-    );
 }
+
 }
